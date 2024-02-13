@@ -557,7 +557,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -104}
+  m_AnchoredPosition: {x: 52.600098, y: -121.400024}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1155190366
@@ -690,7 +690,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -47}
+  m_AnchoredPosition: {x: 51, y: -47}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1177400708
@@ -918,7 +918,7 @@ MonoBehaviour:
     PlayerPrefab: {fileID: 3828212986537547709, guid: 8649785a3d4ab7141842b48241272887, type: 3}
     Prefabs:
       NetworkPrefabsLists:
-      - {fileID: 11400000, guid: c59f014589b4a354ea70529449c90d1e, type: 2}
+      - {fileID: 11400000, guid: 320157cdaa5cb0b47b9f5eebd77d1739, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
