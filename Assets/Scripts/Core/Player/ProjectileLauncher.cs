@@ -9,6 +9,7 @@ public class ProjectileLauncher : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private InputReader inputReader;
+    [SerializeField] private CoinWallet coinWallet;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private GameObject serverProjectilePrefab;
     [SerializeField] private GameObject clientProjectilePrefab;
@@ -19,10 +20,12 @@ public class ProjectileLauncher : NetworkBehaviour
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float fireRate;
     [SerializeField] private float muzzleFlashDuration;
+    [SerializeField] private int costToFire;
 
 
     private bool shouldFire;
-    private float privousFireTime;
+    private float fireRateTimer;
+   
     private float muzzleFlashTimer;
 
     public override void OnNetworkSpawn()
@@ -66,26 +69,44 @@ public class ProjectileLauncher : NetworkBehaviour
             return;
         }
 
+        if (fireRateTimer > 0)
+        {
+            fireRateTimer -= Time.deltaTime;
+        }
+
         if (!shouldFire)
         {
             return;
         }
 
-        if (Time.time  < (1/fireRate) + privousFireTime)
+        if (fireRateTimer > 0)
         {
             return;
         }
-        privousFireTime = Time.time;
+        
 
-
+        if (coinWallet.TotalCoins.Value < costToFire)
+        {
+            return;
+        }
 
         PrimaryFireServerRpc(projectileSpawnPoint.position, projectileSpawnPoint.up);
         SpawnProjectile(projectileSpawnPoint.position, projectileSpawnPoint.up);
+
+        fireRateTimer = 1 / fireRate;
     }
 
     [ServerRpc]
     private void PrimaryFireServerRpc(Vector3 spawnPosition, Vector3 direction)
     {
+        if (coinWallet.TotalCoins.Value < costToFire)
+        {
+            return;
+        }
+        coinWallet.SpendCoins(costToFire);
+
+
+
         GameObject projectileInstance = Instantiate(serverProjectilePrefab, spawnPosition, Quaternion.identity);
 
         projectileInstance.transform.up = direction;
